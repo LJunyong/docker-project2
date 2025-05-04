@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-US">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>website</title>
+      <!-- CSS 로드 -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+      <!-- Google Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">  
+   </head>
+   
+   <body class="size-1520 primary-color-green background-white">
+    <!-- 플래시 메시지 표시 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+      <!-- HEADER -->
+      <header class="grid">
+        <!-- Top Navigation -->
+        <nav class="s-12 grid background-none background-primary-hightlight">
+           <!-- logo -->
+           <a href="{{ url_for('index') }}" class="m-12 l-3 padding-2x logo">
+              <div class="logo-container">
+                 <span class="logo-text">Environment Info Portal</span>
+              </div>
+           </a>
+           <!-- Navigation Links -->
+           <div class="top-nav s-12 l-9"> 
+              <ul class="top-ul right chevron">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about_us') }}">About This Portal</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('contact') }}">Information</a></li>
+
+            {% if current_user %}
+                <!-- 로그인된 경우 -->
+                <li><a href="{{ url_for('survey') }}">Survey</a></li>
+                <li><a href="{{ url_for('logout') }}">로그아웃 ({{ current_user.username }})</a></li>
+            {% else %}
+                <!-- 로그인되지 않은 경우 -->
+                <li><a href="{{ url_for('register') }}">회원가입</a></li>
+                <li><a href="{{ url_for('login') }}">로그인</a></li>
+            {% endif %}
+              </ul>
+           </div>
+        </nav>
+      </header>
+      
+      <!-- MAIN -->
+      <main role="main">
+        <!-- TOP SECTION -->
+        <section class="grid">
+          <!-- Main Carousel -->
+          <div class="s-12 margin-bottom carousel-fade-transition owl-carousel carousel-main carousel-nav-white carousel-hide-arrows background-dark">
+          	<div class="item background-image" style="background-image:url('{{ url_for('static', filename='img/carousel-01.jpg') }}')">
+              <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">다양한 환경 보호 정보들을 만나보세요.</p>
+              <p class="text-padding text-size-20 text-dark text-uppercase background-white">마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.</p>
+            </div>
+          	<div class="item background-image" style="background-image:url('{{ url_for('static', filename='img/carousel-02.jpg') }}')">
+              <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">경각심, 친환경적인 생활의 실천</p>
+              <p class="text-padding text-size-20 text-dark text-uppercase background-white">어떻게 하면 사람들이 친환경적인 생활을 실천할 수 있도록 할까요? 우리가 당장 할 수 있는 것이 무엇이 있을 까요?</p>
+            </div>
+            <div class="item background-image" style="background-image:url('{{ url_for('static', filename='img/carousel-03.jpg') }}')">
+              <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">작은 실천부터 쉽게 나아가세요!</p>
+              <p class="text-padding text-size-20 text-dark text-uppercase background-white">이 포털을 통해 쉽게 실천할 수 있는 정보를 제공하고 있습니다. 우리는 생각보다 많은 것을 할 수 있습니다. 환경 문제를 위해 지구적인 연대가 필요할 때입니다.</p>
+            </div>
+          </div>  
+        </section>
+        
+        <!-- SECTION 1 --> 
+        <section class="grid margin text-center">
+          <a href="https://github.com/LJunyong" class="s-12 m-6 l-3 padding-2x vertical-center margin-bottom background-green">
+            <i class="icon-sli-equalizer text-size-60 text-white center margin-bottom-15"></i>
+            <h3 class="text-strong text-size-20 text-line-height-1 margin-bottom-30 text-uppercase">개발자 정보</h3>
+          </a>
+          <a href="{{ url_for('services') }}" class="s-12 m-6 l-3 padding-2x vertical-center margin-bottom background-green">
+            <i class="icon-sli-layers text-size-60 text-white center margin-bottom-15"></i>
+            <h3 class="text-strong text-size-20 text-line-height-1 margin-bottom-30 text-uppercase">제공되는 서비스</h3>
+          </a>
+          
+          <!-- Image-->
+          <img class="m-12 l-6 l-row-2 margin-bottom" src="{{ url_for('static', filename='img/img-06.jpg') }}" alt="Section Image">
+          
+          <a href="{{ url_for('about_us') }}" class="s-12 m-6 l-3 padding-2x vertical-center margin-bottom background-green" target="_blank" rel="noopener noreferrer">
+            <i class="icon-sli-diamond text-size-60 text-white center margin-bottom-15"></i>
+            <h3 class="text-strong text-size-20 text-line-height-1 margin-bottom-30 text-uppercase">웹 포털 소개</h3>
+          </a>
+          <a href="https://www.instagram.com/ministry_environment/" class="s-12 m-6 l-3 padding-2x vertical-center margin-bottom background-green" target="_blank" rel="noopener noreferrer">
+            <i class="icon-sli-share text-size-60 text-white center margin-bottom-15"></i>
+            <h3 class="text-strong text-size-20 text-line-height-1 margin-bottom-30 text-uppercase">환경부 인스타그램</h3>
+          </a>
+        </section>
+        
+        <!-- SECTION 2 -->
+        <section class="grid section margin-bottom background-green">
+          <h2 class="s-12 l-6 center text-thin  text-white text-uppercase margin-bottom-30 text-size-50">ETA <b>Eco with Thoughful Actives</b></h2>
+          <p class="s-12 l-6 center text-white text-size-20">어떻게 하면 친환경적인 생활을 쉽게 실천 할 수 있을까요?</p>
+          <p class="s-12 l-6 center text-white text-size-20">이 웹 포털은 많은 친환경 정책, 캠페인, 기타 방법에 대한 정보를 제공하고 있습니다.</p>
+        </section>
+        
+        <!-- SECTION 3 --> 
+        <section class="grid margin">
+          <!-- Image-->
+          <img class="s-12 m-6 margin-bottom" src="{{ url_for('static', filename='img/img-01.jpg') }}" alt="Section Image">
+        
+          <div class="s-12 m-6 padding-2x margin-bottom background-green">
+            <h2 class="text-strong text-size-40 text-line-height-1 text-white">다양한 방법으로 참여하세요!<br></h2>
+            <h2 class="text-strong text-size-20 text-line-height-1 text-white">한 사람이 대단한 일을 할 필요는 없습니다.</h2>
+            <h2 class="text-strong text-size-20 text-line-height-1 text-white">단지 실천할 수 있는 것을 조금씩 해내기만 하면됩니다.</h2>
+            <ul>
+              <li>일회용 플라스틱 사용을 줄이고 재사용 가능한 제품을 사용</li> 
+              <li>대중교통이나 자전거, 도보를 이용</li>
+              <li>친환경 제품을 적극적으로 구매하기</li>
+              <li>지역 농산물을 구매하여 탄소 발자국을 줄이기</li>
+              <li>종이 타월 대신 천으로 된 행주를 사용하기 등등</li>
+            </ul>
+          </div>
+        </section>
+        
+        <!-- SECTION 4 -->
+        
+        <!-- SECTION 5 -->
+                
+      </main>
+       
+      <!-- FOOTER -->                                                             
+      <footer class="grid background-green">
+          <!-- Footer - top -->
+          <!-- Image-->
+          
+          <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+              <h2 class="text-strong text-uppercase">Environment Info Portal?</h2>
+              <p class="text-white">
+                경희대학교 마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.
+              </p>
+          </div>
+          <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase"> ETA Eco with Thoughful Actives</h2>
+            <p class="text-white">
+                어떻게 하면 친환경적인 생활을 쉽게 실천 할 수 있을까요?
+                이 웹 포털은 많은 친환경 정책, 캠페인, 기타 방법에 대한 정보를 제공하고 있습니다.
+            </p>
+        </div>
+          
+          <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+              <p class="text-white">
+              </p>
+          </div>
+          
+          <!-- Footer - bottom -->
+      </footer>                                                                    
+      
+      <!-- JavaScript 로드 -->
+      <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/responsee.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='owl-carousel/owl.carousel.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/template-scripts.js') }}"></script>
+   </body>
+</html>

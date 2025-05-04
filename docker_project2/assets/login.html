@@ -1,0 +1,178 @@
+<!-- assets/login.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login</title>
+    <!-- CSS 로드 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">  
+    <!-- 추가된 스타일 -->
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2E8B57; /* 녹색 계열 색상 */
+        }
+        .form-container form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container form button:hover {
+            background-color: #276749;
+        }
+        .error-message {
+            text-align: center;
+            color: red;
+            margin-bottom: 15px;
+        }
+        /* 경고 메시지 스타일 */
+        .warning-message {
+            background-color: #fff3cd; /* 연한 노란색 배경 */
+            color: #856404; /* 어두운 노란색 글자 */
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="size-1520 primary-color-green background-white">
+    <!-- 플래시 메시지 표시 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <!-- HEADER -->
+    <header class="grid">
+        <!-- Top Navigation -->
+        <nav class="s-12 grid background-none background-primary-hightlight">
+            <!-- logo -->
+            <a href="{{ url_for('index') }}" class="m-12 l-3 padding-2x logo">
+                <div class="logo-container">
+                    <span class="logo-text">Environment Info Portal</span>
+                </div>
+            </a>
+            <!-- Navigation Links -->
+            <div class="top-nav s-12 l-9"> 
+                <ul class="top-ul right chevron">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About This Portal</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('contact') }}">Information</a></li>
+            {% if current_user %}
+                <!-- 로그인된 경우 -->
+                <li><a href="{{ url_for('survey') }}">Survey</a></li>
+                <li><a href="{{ url_for('logout') }}">로그아웃 ({{ current_user.username }})</a></li>
+            {% else %}
+                <!-- 로그인되지 않은 경우 -->
+                <li><a href="{{ url_for('register') }}">회원가입</a></li>
+                <li><a href="{{ url_for('login') }}">로그인</a></li>
+            {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+      
+    <!-- MAIN -->
+    <main role="main">
+        <!-- TOP SECTION -->
+        <header class="grid">
+            <div class="s-12 padding-2x">
+                <h1 class="text-strong text-green text-center text-uppercase margin-bottom-20">Welcome! Please Log In</h1>
+            </div>
+        </header>
+
+        <!-- 로그인 폼 컨테이너 -->
+        <div class="form-container">
+            <h1 class="text-strong">로그인</h1>
+            <form method="POST" action="{{ url_for('login') }}">
+                {% if error %}
+                    <p class="error-message">{{ error }}</p>
+                {% endif %}
+                <label for="username">사용자명:</label>
+                <input type="text" name="username" required>
+                
+                <label for="password">비밀번호:</label>
+                <input type="password" name="password" required>
+                
+                <button type="submit">로그인</button>
+            </form>
+        </div>
+
+        <!-- 경고 메시지 -->
+        <div class="warning-message">
+            <strong>주의:</strong>
+            <p>이 사이트는 개인정보를 일체 취급하고 있지 않습니다. </p>
+            <p>※혹시 모를 개인정보 침해를 막기위해 사용자명과</p>
+            <p>사용자명, 비밀번호에 이메일 등 기타 개인정보를 포함하지 마세요.</p>
+            <p> ※크롬 브라우저로 접속시 경고창이 뜹니다. 양해부탁드립니다.</p>
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="grid background-green">
+        <!-- Footer - top -->
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase">Environment Info Portal?</h2>
+            <p class="text-white">
+                경희대학교 마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.
+            </p>
+        </div>
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase"> ETA Eco with Thoughful Actives</h2>
+            <p class="text-white">
+                어떻게 하면 친환경적인 생활을 쉽게 실천 할 수 있을까요?
+                이 웹 포털은 많은 친환경 정책, 캠페인, 기타 방법에 대한 정보를 제공하고 있습니다.
+            </p>
+        </div>
+        <!-- Footer - bottom -->
+    </footer>                                                                    
+    <!-- JavaScript 로드 -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/responsee.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='owl-carousel/owl.carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/template-scripts.js') }}"></script>
+</body>
+</html>

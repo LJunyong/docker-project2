@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  web:
+   image: 'proj2'
+   ports: 
+    - "5000:5000"
+  log:
+   image: 'log'
+   depends_on:
+      - web
+   ports: 
+    - "6000:6000"

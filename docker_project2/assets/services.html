@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">  
+    <!-- 추가된 스타일 -->
+    <style>
+        /* 버튼 크기 조정 */
+        .small-button {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        .service-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body class="size-1520 primary-color-green background-white">
+    <!-- HEADER -->
+    <header class="grid">
+        <!-- Top Navigation -->
+        <nav class="s-12 grid background-none background-primary-hightlight">
+            <a href="{{ url_for('index') }}" class="m-12 l-3 padding-2x logo">
+                <div class="logo-container">
+                    <span class="logo-text">Environment Info Portal</span>
+                </div>
+            </a>
+            <div class="top-nav s-12 l-9"> 
+                <ul class="top-ul right chevron">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About This Portal</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('contact') }}">Information</a></li>
+                    {% if current_user %}
+                        <!-- 로그인된 경우 -->
+                        <li><a href="{{ url_for('survey') }}">Survey</a></li>
+                        <li><a href="{{ url_for('logout') }}">로그아웃 ({{ current_user.username }})</a></li>
+                    {% else %}
+                        <!-- 로그인되지 않은 경우 -->
+                        <li><a href="{{ url_for('register') }}">회원가입</a></li>
+                        <li><a href="{{ url_for('login') }}">로그인</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- MAIN -->
+    <main role="main">
+        <!-- TOP SECTION -->
+        <header class="grid">
+            <div class="s-12 padding-2x">
+                <h1 class="text-strong text-green text-center center text-size-60 text-uppercase margin-bottom-20">Services</h1>
+                <p class="text-size-20 text-green text-center center text-uppercase">
+                    여러분의 친환경 생활 습관을 간단히 점검하고, 생활 속 친환경 팁, 관련 정책, 캠페인 정보를 제공합니다!
+                </p>
+            </div>
+        </header>
+
+        <!-- SECTION 1 -->
+        <section class="grid">
+            <div class="m-12 l-6 padding-2x background-white">
+                <p class="text-strong text-size-80 text-red">01</p>
+                <h2 class="text-size-50 text-line-height-1 text-green"><b>친환경 생활 습관 조사</b></h2>
+                <h2>사용자의 생활 습관 설문을 기반으로 맞춤형 솔루션을 제공합니다.</h2>
+                <h2>이를 통해 스스로의 생활 습관에서 개선할 점을 파악하고, 어떻게 친환경적인 생활를 만들어 갈 것인지 고민해보는 기회가 될 것입니다.</h2>
+                <h2>또한 다른 사람들의 점수와 비교한 퍼센테이지를 통해 얼마나 친환경적인 생활을 하고있는지 여부도 알 수 있습니다.</h2> 
+                <h2>여러분의 친환경 생활 습관을 점검해보세요.</h2> 
+                <!-- Survey 버튼 추가 -->
+                {% if current_user %}
+                    <a href="{{ url_for('survey') }}" class="button text-white background-green small-button service-button">Survey 시작하기</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="button text-white background-green small-button service-button">Survey 시작하기</a>
+                {% endif %}
+            </div>
+            <!-- Image-->
+            <img class="m-12 l-6" src="{{ url_for('static', filename='img/img-03.jpg') }}">
+        </section>
+
+        <!-- SECTION 2 -->
+        <!-- SECTION 3 -->
+        <section class="grid">
+            <div class="m-12 l-6 padding-2x background-aqua">
+                <p class="text-strong text-size-80 text-red">02</p>
+                <h2 class="text-size-50 text-line-height-1 text-green"><b>생활 속 친환경 팁, 관련 정책, 캠페인 정보</b></h2>
+                <h2>이 웹 페이지는 환경 보호 관련 정책과 친환경적인 생활 팁들을 소개합니다.
+                    일상에서 실천 가능한 친환경 생활 습관에 대한 정보, 관련 캠페인와 정책 정보를 쉽게 얻을 수 있습니다.</h2>
+                <h2>환경 보호를 위한 작은 실천을 하는 것에 중점을 둡니다. 위의 설문에 참여한 직후 관련 정보를 찾아보는 것을 추천합니다. 한 사람이 대단한 일을 할 필요는 없습니다. 우리는 실천할 수 있는 것들을 조금씩 해내기만 하면됩니다.</h2>
+                <!-- More Information 버튼 추가 -->
+                {% if current_user %}
+                <a href="{{ url_for('contact') }}" class="button text-white background-green small-button service-button">Information</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="button text-white background-green small-button service-button">Information 이동</a>
+            {% endif %}
+            </div>
+            <!-- Image-->
+            <img class="m-12 l-6" src="{{ url_for('static', filename='img/img-01.jpg') }}">
+        </section>
+        <section class="grid">
+            <div class="m-12 l-6 padding-2x background-aqua">
+                <p class="text-strong text-size-80 text-red">03</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h2 class="text-size-50 text-line-height-1 text-green"><b></b></h2>
+                <h2>
+                    </h2>
+                <h2></h2>
+                <!-- More Information 버튼 추가 -->
+                {% if current_user %}
+                <a href="{{ url_for('contact') }}" class="button text-white background-green small-button service-button"></a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="button text-white background-green small-button service-button"></a>
+            {% endif %}
+            </div>
+            <!-- Image-->
+            <img class="m-12 l-6" src="{{ url_for('static', filename='img/img-02.jpg') }}">
+        </section>      
+    </main>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- FOOTER -->
+    <footer class="grid background-green">
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase">Environment Info Portal?</h2>
+            <p class="text-white">경희대학교 마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.</p>
+        </div>
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase"> ETA Eco with Thoughful Actives</h2>
+            <p class="text-white">
+                어떻게 하면 친환경적인 생활을 쉽게 실천 할 수 있을까요?
+                이 웹 포털은 많은 친환경 정책, 캠페인, 기타 방법에 대한 정보를 제공하고 있습니다.
+            </p>
+        </div>
+    </footer>                                                                
+
+    <!-- JavaScript 로드 -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/responsee.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='owl-carousel/owl.carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/template-scripts.js') }}"></script>
+
+</body>
+</html>

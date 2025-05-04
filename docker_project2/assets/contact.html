@@ -1,0 +1,276 @@
+<!DOCTYPE html> 
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Information</title>
+    <!-- CSS 로드 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">  
+    <!-- 추가된 스타일 -->
+    <style>
+        .content-section {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .content-section .text {
+            flex: 1;
+            padding: 20px;
+            margin-left: 200px; /* 텍스트를 오른쪽으로 살짝 이동 */
+        }
+        .content-section .image {
+            flex: 0 0 800px; /* 이미지의 크기를 고정하여 균일하게 설정 */
+            padding: 10px;
+            text-align: center;
+        }
+        .content-section .image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            max-height: 250px; /* 이미지 비율 유지하면서 크기를 일정하게 */
+        }
+
+        /* 기존에는 모바일에서 column으로 바꾸는 코드가 있었지만 제거 또는 수정 */
+        @media screen and (max-width: 768px) {
+            .content-section {
+                /* column으로 변경하는 대신 가로 스크롤을 허용 */
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+
+            .content-section .text,
+            .content-section .image {
+                flex: 0 0 auto;
+                margin-left: 0; /* 모바일에서 여백 조정 */
+                max-width: 300px; /* 모바일에서 각 요소의 최대 너비 제한 */
+            }
+
+            .content-section .image img {
+                max-height: 150px; /* 모바일에서 이미지 크기 줄이기 */
+            }
+        }
+    </style>
+</head>
+
+<body class="size-1520 primary-color-green background-white">
+    <!-- HEADER -->
+    <header class="grid">
+        <!-- Top Navigation -->
+        <nav class="s-12 grid background-none background-primary-hightlight">
+            <!-- logo -->
+            <a href="{{ url_for('index') }}" class="m-12 l-3 padding-2x logo">
+                <div class="logo-container">
+                    <span class="logo-text">Environment Info Portal</span>
+                </div>
+            </a>
+            <!-- Navigation Links -->
+            <div class="top-nav s-12 l-9"> 
+                <ul class="top-ul right chevron">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About This Portal</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('contact') }}">Information</a></li>
+                    {% if current_user %}
+                        <!-- 로그인된 경우 -->
+                        <li><a href="{{ url_for('survey') }}">Survey</a></li>
+                        <li><a href="{{ url_for('logout') }}">로그아웃 ({{ current_user.username }})</a></li>
+                    {% else %}
+                        <!-- 로그인되지 않은 경우 -->
+                        <li><a href="{{ url_for('register') }}">회원가입</a></li>
+                        <li><a href="{{ url_for('login') }}">로그인</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+      
+    <!-- MAIN -->
+    <main role="main">
+        <!-- TOP SECTION -->
+        <header class="grid">
+            <div class="s-12 padding-2x">
+                <h1 class="text-strong text-green text-center center text-size-60 text-uppercase margin-bottom-20">Information</h1>
+            </div>
+        </header>
+
+        <!-- 콘텐츠 섹션 시작 -->
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">서울시 기후동행카드 사업</h2>
+                <p class="text-size-20">
+                    기후동행카드는 1회 요금 충전으로 선택한 사용기간동안 대중교통(지하철, 버스), 따릉이를 무제한 이용할 수 있는 대중교통 통합 정기권
+이용범위: 서울지역 지하철 + 김포골드라인, 서울시 면허 시내·마을버스, 따릉이
+가격: 30일권(따릉이 포함) 65000원, 30일권(따릉이 미포함) 62000원 등 청년(만 19~39세)일 경우 7000원 할인
+발급방법과 자세한 내용은 링크 참조
+링크:
+https://news.seoul.go.kr/traffic/archives/510651
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림1.png') }}" alt="그림 1">
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">K-패스</h2>
+                <p class="text-size-20">
+                    K-패스는 월 15회 이상 대중교통을 이용한 경우 대중교통 이용액 중 일부를 적립하여 환급해주는 사업
+                    혜택:최대 50회까지 일반 20%, 청년(만19~34세) 30%, 저소득 53% 환급 가능
+                    발급방법과 자세한 내용은 링크 참조
+                    링크:https://korea-pass.kr/
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림2.png') }}" alt="그림 2">
+            </div>
+        </section>
+
+        <!-- 추가 섹션들 -->
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">리턴잇 배달 다회용기 서비스</h2>
+                <p class="text-size-20">
+                    
+배달의민족, 요기요, 쿠팡이츠 등 배달 앱에서 다회용기 서비스 이용가능.
+장점: 직접 음식물 쓰레기와 용기 쓰레기를 처리하지 않아도 됨, 탄소중립포인트와 기후행동 기회소득으로 연동 가능
+이용방법이나 자세한 내용은 배달앱이나 링크 참조
+링크:https://www.returnit.kr/
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림3.png') }}" alt="그림 3">
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">탄소중립포인트 녹색생활 실천</h2>
+                <p class="text-size-20">
+                    
+다양한 민간기업의 친환경활동 이용 시 이용실적에 따라 인센티브를 지원하는 제도로 탄소중립포인트 녹색생활을 실천하여 현금이나 참여기업/카드사의 포인트를 얻을 수 있음.
+참여방법: 전자영수증 이용, 텀블러 및 다회용컵 이용, 배달음식 다회용기 사용, 친환경 제품 구매, 리필스테이션 이용 등
+참여기업:SSG, 스타벅스, 홈플러스, GS25, 세븐일레븐, CU, 쿠팡이츠, 롯데, 메가MGC커피, 현대 등
+지급 금액과 자세한 내용은 링크 참조
+링크:https://cpoint.or.kr/netzero
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림4.png') }}" alt="그림 4">
+            </div>
+        </section>
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">탄소중립포인트 자동차</h2>
+                <p class="text-size-20">
+                    승용, 승합 자동차의 주행거리를 감축하여 온실가스를 감축할 경우, 주행거리 감축실적에 따른 인센티브를 지급하는 제도로 주행거리 감축 실적에 따라 0~10만원 지급받을 수 있음
+                    참여 방법과 지급기준 등 자세한 내용은 링크참조
+                    링크:
+                    https://car.cpoint.or.kr
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림5.png') }}" alt="그림 5">
+            </div>
+        </section>
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">탄소중립포인트 에너지</h2>
+                <p class="text-size-20">
+                    탄소중립포인트 에너지
+                    탄소중립포인트 에너지는 기후위기 대응을 위하여 온실가스를 줄일 수 있도록 가정, 상업 등에서 전기, 상수도, 도시가스의 사용량을 절감하고 감축률에 따라 탄소포인트를 부여하는 전국민 온실가스 감축 실천 제도이다.
+                    참여조건:에너지 사용량을 확인 할 수 있는 계량기가 부착되어 있거나, 다른 객관적인 방법으로 에너지 사용량이 확인 가능한 경우
+                    참여방법과 인센티브 등 자세한 내용은 링크 참조 
+                    링크: https://cpoint.or.kr/
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림6.png') }}" alt="그림 6">
+            </div>
+        </section>
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">수퍼빈-순환자원 회수 로봇 네프론</h2>
+                <p class="text-size-20">
+                    
+수퍼빈은 순환자원 비즈니스를 하는 기업으로 순환자원 회수 로봇인 네프론에게 페트병이나 캔을 주어 현금으로 환급할 수 있는 포인트를 받을 수 있음
+기준: 페트병이나 캔 1개당 10포인트
+위치나 자세한 내용은 링크 참조
+링크:https://www.superbin.co.kr/ 
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림8.png') }}" alt="그림 8">
+            </div>
+        </section>
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">경기도 기후행동 기회소득 사업</h2>
+                <p class="text-size-20">
+                    경기도 기후행동 기회소득 사업
+탄소중립 실천 활동을 한 도민에게 실천 활동에 대한 사회적 가치를 평가하여 기회소득(리워드)를 지급하는 사업.
+참여방법: 걷기, 자전거 및 대중교통 이용, 다회용컵 할인 카페 이용, 배달음식 다회용기 이용, PC 절전 프로그램 사용, 고효율 가전제품 구입 등
+지급금액과 자세한 내용은 링크 참조
+링크: https://www.ggaction.or.kr/
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림7.png') }}" alt="그림 7">
+            </div>
+        </section>
+        <section class="content-section">
+            <div class="text">
+                <h2 class="text-strong text-size-20">동사무소(행정복지센터) 유용 생활폐자원 교환사업</h2>
+                <p class="text-size-20">
+                
+자원의 수거율을 높이고 주민에게 직접 자원 선순환 활동에 참여할 기회를 제공하여 종이팩(우유팩, 두유팩 등), 폐건전지 등 유용 생활폐자원을 화장지, 종량제봉투 등으로 교환해주는 사업.
+기준(수원시 기준): 종이팩 1kg > 1롤, 폐건전지 20개 > 1롤
+자세한 내용은 각 지역의 동사무소(행정복지센터) 참조
+                </p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/그림9.png') }}" alt="그림 9">
+            </div>
+        </section>
+
+        <!-- 콘텐츠 섹션 종료 -->
+
+        <!-- 다른 섹션들 동일한 구조 -->
+
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="grid background-green">
+        <!-- Footer - top -->
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase">Environment Info Portal?</h2>
+            <p class="text-white">
+                경희대학교 마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.
+            </p>
+        </div>
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase">ETA Eco with Thoughtful Activities</h2>
+            <p class="text-white">
+                어떻게 하면 친환경적인 생활을 쉽게 실천할 수 있을까요?
+            </p>
+        </div>
+    </footer>                                                                    
+    <!-- JavaScript 로드 -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/responsee.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='owl-carousel/owl.carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/template-scripts.js') }}"></script>
+</body>
+</html>

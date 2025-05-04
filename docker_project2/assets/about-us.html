@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About website</title>
+    <!-- CSS 로드 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">  
+</head>
+
+<body class="size-1520 primary-color-green background-white">
+    <!-- HEADER -->
+    <header class="grid">
+        <!-- Top Navigation -->
+        <nav class="s-12 grid background-none background-primary-hightlight">
+            <!-- logo -->
+            <a href="{{ url_for('index') }}" class="m-12 l-3 padding-2x logo">
+                <div class="logo-container">
+                    <span class="logo-text">Environment Info Portal</span>
+                </div>
+            </a>
+            <!-- Navigation Links -->
+            <div class="top-nav s-12 l-9"> 
+                <ul class="top-ul right chevron">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about_us') }}">About This Portal</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('contact') }}">Information</a></li>
+                    {% if current_user %}
+                <!-- 로그인된 경우 -->
+                <li><a href="{{ url_for('survey') }}">Survey</a></li>
+                <li><a href="{{ url_for('logout') }}">로그아웃 ({{ current_user.username }})</a></li>
+            {% else %}
+                <!-- 로그인되지 않은 경우 -->
+                <li><a href="{{ url_for('register') }}">회원가입</a></li>
+                <li><a href="{{ url_for('login') }}">로그인</a></li>
+            {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- MAIN -->
+    <main role="main">
+        <!-- TOP SECTION -->
+        <header class="grid">
+            <div class="s-12 padding-2x">
+                <h1 class="text-strong text-green text-center center text-size-50 text-uppercase margin-bottom-20">Environment Info Portal</h1>
+                <p class="text-size-20 text-green text-center center text-uppercase margin-bottom-10">
+                    마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.<br>
+                </p>
+                <p class="text-size-20 text-green text-center center text-uppercase">어떻게 하면 사람들이 친환경적인 생활을 쉽게 실천 할 수 있을까요?</p>
+            </div>
+        </header>
+
+        <!-- SECTION 1 -->
+        <section class="grid">        
+            <div class="m-12 l-6 padding-2x background-white">
+                <h2 class="text-dark text-size-40">한 사람이 대단한 일을 할 필요는 없습니다.</h2>
+                <p class="text-size-15">
+                    한 사람이 대단한 일을 할 필요는 없습니다.
+                    작은 행동부터 시작할 수 있습니다. 예를 들어, 일회용 플라스틱 사용을 줄이거나, 재활용이 가능한 제품을 사용하세요. 환경을 위한 실천은 복잡하거나 큰 일이 아니더라도 할 수 있는 일을 차근차근 하는것이 효과적입니다.<br><br>
+                </p>
+                <h2 class="text-dark text-size-40">우리는 실천할 수 있는 것을 조금씩 해내기만 하면됩니다.</h2>
+                <p class="text-size-15">
+                    작은 변화가 모이면 큰 차이를 만들 수 있습니다. 가까운 거리는 걷거나 자전거를 이용하고, 불필요한 전기 사용을 줄이며, 지역 농산물을 소비하는 습관들이 모여 환경에 영향을 미칠 수 있습니다.<br>
+                    이 웹 포털은 대단한 것들을 요구하지 않습니다. 여기서는 여러분의 생활 습관을 간단히 점검하고, 그에 맞춘 생활 속 친환경 팁, 관련 정책, 캠페인 정보를 제공합니다.<br><br>
+                    바쁜 일상에서 환경 문제를 잊기 쉬운 사람들을 위해, 우리의 활동이 환경 문제와 스스로의 행동을 되돌아보는 계기가 되기를 바랍니다.<br>
+        
+            </div>
+            
+            <!-- Image-->
+            <img class="l-6 hide-s hide-m" src="{{ url_for('static', filename='img/img-01.jpg') }}" alt="About Us Image">
+        </section>
+        <!-- SECTION 2 -->
+    </main>
+    
+    
+    
+    <!-- FOOTER -->
+    <footer class="grid background-green">
+        <!-- Footer - top -->
+        <!-- Image-->
+         
+        
+        
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase">Environment Info Portal?</h2>
+            <p class="text-white">경희대학교 마이크로서비스 프로그래밍 프로젝트를 진행중입니다. 이 홈페이지는 환경 보호를 위해 만들어졌습니다.</p>
+        </div>
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+            <h2 class="text-strong text-uppercase"> ETA Eco with Thoughful Actives</h2>
+            <p class="text-white">
+                어떻게 하면 친환경적인 생활을 쉽게 실천 할 수 있을까요?
+                이 웹 포털은 많은 친환경 정책, 캠페인, 기타 방법에 대한 정보를 제공하고 있습니다.
+            </p>
+        </div>
+        
+        
+        <!-- Footer - bottom -->
+    </footer>                                                                    
+    <!-- JavaScript 로드 -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/responsee.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='owl-carousel/owl.carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/template-scripts.js') }}"></script>
+
+</body>
+</html>

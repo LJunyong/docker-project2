@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+    <style>
+        /* 추가적인 인라인 스타일 (필요 시 제거) */
+        .flash-message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #006400; /* 진한 녹색 테두리 */
+            background-color: #e0ffe0; /* 연한 녹색 배경 */
+            border-radius: 8px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 100, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .score {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            color: #2f4f4f; /* 어두운 회녹색 */
+        }
+        .solutions, .all-responses {
+            text-align: left;
+            margin: 25px 0;
+            padding: 15px;
+            border: 1px solid #006400; /* 진한 녹색 테두리 */
+            border-radius: 8px;
+            background-color: #f0fff0; /* 매우 연한 녹색 배경 */
+        }
+        .solutions h2, .all-responses h2 {
+            color: #006400; /* 진한 녹색 헤딩 */
+            margin-bottom: 15px;
+        }
+        .solutions ul, .all-responses ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .all-responses ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .all-responses li {
+            margin: 5px 0;
+            color: #2f4f4f; /* 어두운 회녹색 */
+        }
+        .reset-button {
+            margin: 30px 0;
+        }
+        .reset-button button {
+            padding: 10px 25px;
+            font-size: 1rem;
+            background-color: #ff4d4d; /* 밝은 빨간색 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .reset-button button:hover {
+            background-color: #ff1a1a; /* 더 진한 빨간색 */
+        }
+        .home-link {
+            margin: 20px 0;
+        }
+        .home-link a {
+            text-decoration: none;
+            color: #006400; /* 진한 녹색 */
+            font-weight: 700;
+            padding: 10px 20px;
+            border: 2px solid #006400;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .home-link a:hover {
+            background-color: #006400;
+            color: #fff;
+        }
+        /* 네모 박스 스타일 */
+        .box {
+            border: 2px solid #006400; /* 진한 녹색 테두리 */
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9fff9; /* 매우 연한 녹색 배경 */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 플래시 메시지 표시 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-message">
+                {% for category, message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h1 class="headline">결과</h1>
+        <div class="box">
+            <p class="score">환경 점수: <strong>{{ user_score }}%</strong></p>
+            <p class="score">상위 <strong>{{ percentile }}%</strong>에 속합니다.</p>
+        </div>
+
+        <!-- 맞춤형 솔루션 -->
+        {% if solutions %}
+            <div class="solutions box">
+                <h2 class="headline">솔루션</h2>
+                <ul class="text-list">
+                    {% for item in solutions %}
+                        <li class="margin-bottom-10">
+                            <strong>{{ item.solution['solution'] }}</strong><br>
+                            {{ item.solution['explanation'] }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <div class="box">
+                <p class="score">축하합니다! 충분히 친환경적인 생활을 하고 계십니다.</p>
+            </div>
+        {% endif %}
+
+        <div class="home-link">
+            <a href="{{ url_for('index') }}">홈으로 돌아가기</a>
+        </div>
+
+        <!-- 전체 응답 요약 -->
+        <div class="all-responses box">
+            <h2 class="headline">전체</h2>
+            <ul class="text-list">
+                {% for response in all_responses %}
+                    <li>{{ response.username }}: 점수 {{ response.score }}%</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 설문 초기화 -->
+        <div class="reset-button">
+            <form method="POST" action="{{ url_for('reset_survey') }}">
+                <button type="submit" onclick="return confirm('정말 설문을 초기화하시겠습니까?')">설문 초기화</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
